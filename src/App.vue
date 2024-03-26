@@ -25,7 +25,7 @@ onMounted(() => {
 
 <style scoped>
 .wrapper {
-  width: 640px;
+  /* width: 640px; */
   height: 100vh;
   margin: 0 auto;
   padding-top: 50px;
