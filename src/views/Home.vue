@@ -2,6 +2,9 @@
 import { onMounted, computed, ref } from "vue";
 import axios from "axios";
 
+import TotalBalance from "@/components/TotalBalance.vue";
+import TotalSum from "@/components/TotalSum.vue";
+
 const data = ref({});
 const list = ref(0);
 
@@ -26,17 +29,11 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <div>
-      <h1>{{ data[0]?.balance }}</h1>
-    </div>
-    <br />
-
-    <div>
-      <h2>{{ list[0]?.amount }}</h2>
-    </div>
-    <div>
-      <h4>{{ list[0]?.description }}</h4>
-    </div>
+    <!-- Total balance -->
+    <total-balance />
+    <!-- Nalog -->
+    <total-sum />
+    <!-- Виписка -->
   </div>
 </template>
 

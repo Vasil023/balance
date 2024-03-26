@@ -7,9 +7,8 @@ import Register from "./views/Register.vue";
 
 const store = useUserStore();
 
-const checkSession = store.checkSession();
-
 onMounted(() => {
+  store.checkSession();
   // console.log(store.checkUser, "user");
   // console.log(user);
   // check session
@@ -19,14 +18,14 @@ onMounted(() => {
 
 <template>
   <div class="wrapper">
-    <home v-if="store.checkUser" />
+    <!-- <home v-if="store.checkUser" /> -->
     <RouterView />
   </div>
 </template>
 
 <style scoped>
 .wrapper {
-  width: 700px;
+  width: 640px;
   height: 100vh;
   margin: 0 auto;
   padding-top: 50px;
