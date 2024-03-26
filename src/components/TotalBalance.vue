@@ -4,11 +4,11 @@
       <div class="flex bg-white shadow-gray-300 rounded-xl p-4">
         <div class="flex justify-between w-full">
           <div class="flex-col">
-            <p class="text-[#B8B8B8]">Січ-Бер</p>
+            <p class="text-[#B8B8B8] text-sm">Січ-Бер</p>
             <p class="text-xl">Квартал 1</p>
           </div>
           <div>
-            <p class="text-[#B8B8B8]">Оподаткований дохід</p>
+            <p class="text-[#B8B8B8] text-sm">Оподаткований дохід</p>
             <p class="text-[#6CCE8C] text-xl text-right">120000 грн</p>
           </div>
         </div>

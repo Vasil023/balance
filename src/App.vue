@@ -9,10 +9,6 @@ const store = useUserStore();
 
 onMounted(() => {
   store.checkSession();
-  // console.log(store.checkUser, "user");
-  // console.log(user);
-  // check session
-  // supabase.auth.onAuthStateChange((_, _session) => {});
 });
 </script>
 
@@ -26,6 +22,7 @@ onMounted(() => {
 <style scoped>
 .wrapper {
   /* width: 640px; */
+  position: relative;
   height: 100vh;
   margin: 0 auto;
   padding-top: 50px;

@@ -4,6 +4,7 @@ import axios from "axios";
 
 import TotalBalance from "@/components/TotalBalance.vue";
 import TotalSum from "@/components/TotalSum.vue";
+import ListDeals from "@/components/ListDeals.vue";
 
 const data = ref({});
 const list = ref(0);
@@ -33,8 +34,9 @@ onMounted(() => {
     <total-balance />
     <!-- Nalog -->
     <total-sum />
-    <!-- Виписка -->
   </div>
+  <!-- Виписка -->
+  <list-deals />
 </template>
 
 <style>
