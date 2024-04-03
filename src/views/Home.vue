@@ -1,30 +1,20 @@
 <script setup>
-import { onMounted, computed, ref } from "vue";
-import axios from "axios";
+import { onMounted, onUnmounted } from "vue";
+import { useBankStore } from "@/stores/bank-api.js";
 
 import TotalBalance from "@/components/TotalBalance.vue";
 import TotalSum from "@/components/TotalSum.vue";
 import ListDeals from "@/components/ListDeals.vue";
 
-const data = ref({});
-const list = ref(0);
+const store = useBankStore();
 
-onMounted(() => {
-  // console.log(dayjs("2010-04-01").quarter(), dayjs("2010-04-01").quarter(2));
-  // axios
-  //   .get("https://api.monobank.ua/personal/client-info", {
-  //     headers: {
-  //       "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
-  //     },
-  //   })
-  //   .then((res) => (data.value = res.data.accounts.filter((i) => i.type === "fop")));
-  // axios
-  //   .get("https://api.monobank.ua/personal/statement/_3xe8hv_38-86EWSbvZFyA/1709244000", {
-  //     headers: {
-  //       "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
-  //     },
-  //   })
-  //   .then((res) => (list.value = res.data.filter((i) => i.invoiceId)));
+// store.getInfo();
+
+store.run();
+
+// Останавливаем таймер при уничтожении компонента
+onUnmounted(() => {
+  dataStore.stopTimer();
 });
 </script>
 
@@ -36,7 +26,7 @@ onMounted(() => {
     <total-sum />
   </div>
   <!-- Виписка -->
-  <list-deals />
+  <list-deals :data="store.data" />
 </template>
 
 <style>
