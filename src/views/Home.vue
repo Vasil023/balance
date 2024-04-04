@@ -21,12 +21,12 @@ onUnmounted(() => {
 <template>
   <div class="container">
     <!-- Total balance -->
-    <total-balance />
+    <total-balance :data="store.getSum" />
     <!-- Nalog -->
     <total-sum />
   </div>
   <!-- Виписка -->
-  <list-deals :data="store.data" />
+  <list-deals :data="store.getTransactionsToQuarter" />
 </template>
 
 <style>

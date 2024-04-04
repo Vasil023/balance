@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import { formattedMonths } from "@/utils/formatedDate";
 import { isNonNegative } from "@/utils/isNonNegative";
+import { useLocalStorage } from "@vueuse/core";
 
 dayjs.extend(quarterOfYear);
 
@@ -14,34 +15,37 @@ export const useBankStore = defineStore("bank", {
     amount: null,
     loading: false,
     keys: [],
-    index: 0,
+    index: localStorage.getItem("index") || 0,
     timer: null,
   }),
 
   actions: {
     async run() {
       await this.getTransactionsForDataBase();
-
-      // await this.startTimer();
     },
 
     async getTransactionsForDataBase() {
+      this.data = [];
+
       let { data: Balance, error } = await supabase.from("Balance").select("*");
 
+      switch (Balance.length) {
+        case 0:
+          localStorage.removeItem("index");
+          console.log("База данных пуста");
+          break;
+      }
+
       this.data = Balance;
+
+      await this.startTimer();
     },
 
-    /**
-     * Start the timer and initialize necessary variables.
-     *
-     * @return {void}
-     */
     startTimer() {
       this.keys = Object.keys(formattedMonths);
-      this.index = 0;
-      this.timer = setInterval(this.printNextElement, 2000);
+      this.index = localStorage.getItem("index") || 0;
+      this.timer = setInterval(this.printNextElement, 10000);
       this.printNextElement(); // Начать вывод первого элемента сразу
-      this.data = [];
     },
 
     stopTimer() {
@@ -55,14 +59,13 @@ export const useBankStore = defineStore("bank", {
       if (this.index <= dayjs().month()) {
         const { month, unixTimestamp, fullDate, quarter } = formattedMonths[this.keys[this.index]];
 
-        if (this.data.length !== 0) return;
-        console.log("startTimer");
-        // await this.getAllTransactions(unixTimestamp, fullDate, quarter);
+        await this.getAllTransactions(unixTimestamp, fullDate - 86400, quarter);
 
         this.index++;
       } else {
         this.upsertData();
         this.stopTimer();
+        useLocalStorage("index", this.index);
       }
     },
 
@@ -72,13 +75,6 @@ export const useBankStore = defineStore("bank", {
       if (error) throw error;
     },
 
-    /**
-     * Retrieves all transactions for the specified year range and quarter.
-     *
-     * @param {number} currentYear - The current year for transactions.
-     * @param {number} nextYear - The next year for transactions.
-     * @param {string} quarter - The quarter for transactions.
-     */
     async getAllTransactions(currentYear, nextYear, quarter) {
       const res = await (async () => {
         try {
@@ -103,8 +99,8 @@ export const useBankStore = defineStore("bank", {
 
   getters: {
     getSum: (state) =>
-      state.data.forEach((i) => {
-        i;
-      }),
+      state.data.filter((i) => i.quarter === 1).reduce((acc, item) => acc + item.operationAmount, 0),
+
+    getTransactionsToQuarter: (state) => state.data.filter((i) => i.quarter === 1),
   },
 });

@@ -9,7 +9,8 @@
           </div>
           <div>
             <p class="text-[#B8B8B8] text-sm">Оподаткований дохід</p>
-            <p class="text-[#6CCE8C] text-xl text-right">120000 грн</p>
+            <p class="text-[#6CCE8C] text-xl text-right">{{ data }} грн</p>
+            {{ balance }}
           </div>
         </div>
       </div>
@@ -28,6 +29,11 @@ export default {
     Swiper,
     SwiperSlide,
   },
+
+  props: {
+    data: Array,
+  },
+
   setup() {
     const onSwiper = (swiper) => {
       // console.log(swiper);
@@ -35,6 +41,7 @@ export default {
     const onSlideChange = (swiper) => {
       console.log("slide change", swiper);
     };
+
     return {
       onSwiper,
       onSlideChange,
