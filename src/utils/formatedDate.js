@@ -43,3 +43,5 @@ export const formattedMonths = allMonths.map((month) => ({
   fullDate: dayjs(convertUnixTimestampToNormalDate(month.unixTimestamp)).valueOf(),
   quarter: dayjs(convertUnixTimestamp(month.unixTimestamp)).quarter(),
 }));
+
+console.log(formattedMonths);
