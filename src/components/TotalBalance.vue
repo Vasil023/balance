@@ -39,7 +39,7 @@ export default {
       // console.log(swiper);
     };
     const onSlideChange = (swiper) => {
-      console.log("slide change", swiper);
+      console.log("slide change +1", swiper);
     };
 
     return {

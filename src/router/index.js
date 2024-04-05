@@ -32,7 +32,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem("token");
-  console.log(to.name);
   // If logged in, or going to the Login page.
   if (token || to.name === "login" || to.name === "register") {
     // Continue to page.
