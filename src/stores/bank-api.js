@@ -44,7 +44,7 @@ export const useBankStore = defineStore("bank", {
           ? this.data[this.data.length - 1].time
           : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
       );
-      this.timer = setInterval(this.printNextElement, 2000);
+      this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
 
@@ -58,39 +58,43 @@ export const useBankStore = defineStore("bank", {
         await this.getAllTransactions(start, end, quarter);
         this.index++;
       } else {
-        this.upsertData();
+        // this.upsertData();
         this.stopTimer();
       }
     },
 
-    async upsertData() {
-      const { data, error } = await supabase.from("Balance").insert(this.data).select();
+    async upsertData(obg) {
+      const { data, error } = await supabase.from("Balance").insert(obg).select();
 
       if (error) {
-        // Обробка помилки
-        throw error;
+        // throw error;
+        console.log("error");
       }
+
+      if (data === null) return;
+
+      data.forEach((i) => {
+        this.data.push(i);
+      });
     },
 
     async getAllTransactions(currentYear, nextYear, quarter) {
       try {
-        const res = await api.getTransactions("_3xe8hv_38-86EWSbvZFyA", currentYear, nextYear);
+        const { data } = await api.getTransactions("_3xe8hv_38-86EWSbvZFyA", currentYear, nextYear);
 
-        if (res.data.length === 0) {
-          this.upsertData();
-          this.stopTimer();
-        }
+        if (data.length === 0) return;
 
-        const transactions = res.data.filter((i) => isNonNegative(i.operationAmount));
-        this.data.push(
-          ...transactions.map((i) => ({
-            operationAmount: i.operationAmount,
-            description: i.description,
-            comment: i.comment,
-            time: i.time,
+        const filteredTransactions = data
+          .filter((i) => isNonNegative(i.operationAmount))
+          .map(({ operationAmount, description, comment, time }) => ({
+            operationAmount,
+            description,
+            comment,
+            time,
             quarter,
-          }))
-        );
+          }));
+
+        this.upsertData(filteredTransactions);
       } catch (error) {
         this.stopTimer();
         throw error;
@@ -102,6 +106,16 @@ export const useBankStore = defineStore("bank", {
     getSum: (state) =>
       state.data.filter((i) => i.quarter === 2).reduce((acc, item) => acc + item.operationAmount, 0),
 
-    getTransactionsToQuarter: (state) => state.data.filter((i) => i.quarter === 2),
+    getSumWithTaxPercent(state) {
+      const quarterTotal = state.data
+        .filter((transaction) => transaction.quarter === 2)
+        .reduce((sum, transaction) => sum + transaction.operationAmount, 0);
+
+      // const tax = quarterTotal * 0.05;
+
+      return quarterTotal ? quarterTotal * 0.05 + 468600 : 0;
+    },
+
+    getTransactionsToQuarter: (state) => state.data.filter((i) => i?.quarter === 2),
   },
 });
