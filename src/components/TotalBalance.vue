@@ -5,11 +5,13 @@
         <div class="flex justify-between w-full">
           <div class="flex-col">
             <p class="text-[#B8B8B8] text-sm">Січ-Бер</p>
-            <p class="text-xl">Квартал 1</p>
+            <p class="text-base">Квартал 1</p>
           </div>
           <div>
             <p class="text-[#B8B8B8] text-sm">Оподаткований дохід</p>
-            <p class="text-[#6CCE8C] text-xl text-right">{{ data }} грн</p>
+            <p class="text-[#6CCE8C] text-base text-right">
+              {{ formatNumber(data) }}
+            </p>
             {{ balance }}
           </div>
         </div>
@@ -17,35 +19,20 @@
     </swiper-slide>
   </swiper>
 </template>
-<script>
-// Import Swiper Vue.js components
+<script setup>
 import { Swiper, SwiperSlide } from "swiper/vue";
-
-// Import Swiper styles
+import { formatNumber } from "@/utils/formatNumber.js";
 import "swiper/css";
 
-export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-  },
+const props = defineProps({
+  data: Array,
+});
 
-  props: {
-    data: Array,
-  },
+const onSwiper = (swiper) => {
+  // console.log(swiper);
+};
 
-  setup() {
-    const onSwiper = (swiper) => {
-      // console.log(swiper);
-    };
-    const onSlideChange = (swiper) => {
-      console.log("slide change", swiper);
-    };
-
-    return {
-      onSwiper,
-      onSlideChange,
-    };
-  },
+const onSlideChange = (swiper) => {
+  console.log("slide change +1", swiper);
 };
 </script>

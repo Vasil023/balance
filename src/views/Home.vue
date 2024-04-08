@@ -14,7 +14,7 @@ store.run();
 
 // Останавливаем таймер при уничтожении компонента
 onUnmounted(() => {
-  dataStore.stopTimer();
+  store.stopTimer();
 });
 </script>
 
@@ -23,7 +23,7 @@ onUnmounted(() => {
     <!-- Total balance -->
     <total-balance :data="store.getSum" />
     <!-- Nalog -->
-    <total-sum />
+    <total-sum :data="store.getSumWithTaxPercent" />
   </div>
   <!-- Виписка -->
   <list-deals :data="store.getTransactionsToQuarter" />
