@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
+import { useLocalStorage } from "@vueuse/core";
 
 dayjs.extend(quarterOfYear);
 
@@ -17,6 +18,8 @@ export function getQuarterMonths(monthTimestamp) {
 
   const result = [];
   const quarter = quarterStart.quarter(); // Номер кварталу
+
+  useLocalStorage("quarter", quarter);
 
   for (let month = 0; month < 3; month++) {
     const start = quarterStart.add(month, "month").unix();

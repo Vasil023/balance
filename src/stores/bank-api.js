@@ -5,13 +5,13 @@ import dayjs from "dayjs";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import { getQuarterMonths } from "@/utils/formatedDate";
 import { isNonNegative } from "@/utils/isNonNegative";
-import { useLocalStorage } from "@vueuse/core";
 
 dayjs.extend(quarterOfYear);
 
 export const useBankStore = defineStore("bank", {
   state: () => ({
     data: [],
+    filterData: [],
     amount: null,
     loading: false,
     index: 0,
@@ -35,15 +35,19 @@ export const useBankStore = defineStore("bank", {
       }
 
       this.data = Balance;
+
+      this.getTransactionsToQuarter(+localStorage.getItem("quarter"));
+
       this.startTimer();
     },
 
     startTimer() {
-      this.mount = getQuarterMonths(
-        this.data.length
-          ? this.data[this.data.length - 1].time
-          : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
-      );
+      // this.mount = getQuarterMonths(
+      //   this.data.length
+      //     ? this.data[this.data.length - 1].time
+      //     : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
+      // );
+      this.mount = getQuarterMonths(1675950305);
       this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
@@ -61,21 +65,6 @@ export const useBankStore = defineStore("bank", {
         // this.upsertData();
         this.stopTimer();
       }
-    },
-
-    async upsertData(obg) {
-      const { data, error } = await supabase.from("Balance").insert(obg).select();
-
-      if (error) {
-        // throw error;
-        console.log("error");
-      }
-
-      if (data === null) return;
-
-      data.forEach((i) => {
-        this.data.push(i);
-      });
     },
 
     async getAllTransactions(currentYear, nextYear, quarter) {
@@ -100,22 +89,42 @@ export const useBankStore = defineStore("bank", {
         throw error;
       }
     },
+
+    async upsertData(obg) {
+      const { data, error } = await supabase.from("Balance").insert(obg).select();
+
+      if (error) {
+        // throw error;
+        console.log("error");
+      }
+
+      if (data === null) return;
+
+      data.forEach((i) => {
+        this.data.push(i);
+      });
+    },
+
+    getTransactionsToQuarter(index) {
+      console.log(index);
+      const res = this.data.filter((i) => i?.quarter === index);
+
+      return (this.filterData = res);
+    },
   },
 
   getters: {
-    getSum: (state) =>
-      state.data.filter((i) => i.quarter === 2).reduce((acc, item) => acc + item.operationAmount, 0),
+    getSum: (state) => state.filterData.reduce((acc, item) => acc + item.operationAmount, 0),
 
     getSumWithTaxPercent(state) {
-      const quarterTotal = state.data
-        .filter((transaction) => transaction.quarter === 2)
-        .reduce((sum, transaction) => sum + transaction.operationAmount, 0);
+      const quarterTotal = state.filterData.reduce(
+        (sum, transaction) => sum + transaction.operationAmount,
+        0
+      );
 
       // const tax = quarterTotal * 0.05;
 
       return quarterTotal ? quarterTotal * 0.05 + 468600 : 0;
     },
-
-    getTransactionsToQuarter: (state) => state.data.filter((i) => i?.quarter === 2),
   },
 });

@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
   <li class="flex justify-between align-middle mt-3">
-    <div class="w-64">
+    <div class="sm:w-auto w-64">
       <!-- <img src="" alt=""> -->
       <p>{{ props.data.description }}</p>
       <span class="text-sm text-gray-300 leading-3">{{ props.data.comment }}</span>
