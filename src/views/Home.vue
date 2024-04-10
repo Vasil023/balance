@@ -26,7 +26,7 @@ onUnmounted(() => {
     <total-sum :data="store.getSumWithTaxPercent" />
   </div>
   <!-- Виписка -->
-  <list-deals :data="store.getTransactionsToQuarter" />
+  <list-deals :data="store.filterData" />
 </template>
 
 <style>
