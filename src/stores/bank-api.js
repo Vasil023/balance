@@ -8,6 +8,8 @@ import { isNonNegative } from "@/utils/isNonNegative";
 
 dayjs.extend(quarterOfYear);
 
+const viteEcv = import.meta.env.VITE_ECV;
+
 export const useBankStore = defineStore("bank", {
   state: () => ({
     data: [],
@@ -17,11 +19,14 @@ export const useBankStore = defineStore("bank", {
     index: 0,
     timer: null,
     mount: [],
+    ecv: +import.meta.env.VITE_ECV,
   }),
 
   actions: {
     async run() {
       await this.getTransactionsForDataBase();
+
+      await this.getExchangeRates();
     },
 
     async getTransactionsForDataBase() {
@@ -109,6 +114,11 @@ export const useBankStore = defineStore("bank", {
 
       return (this.filterData = res);
     },
+
+    // async getExchangeRates() {
+    //   const { data } = api.getExchangeRates("01.01.2024");
+    //   console.log(data);
+    // },
   },
 
   getters: {
@@ -119,10 +129,15 @@ export const useBankStore = defineStore("bank", {
         (sum, transaction) => sum + transaction.operationAmount,
         0
       );
+      return quarterTotal ? quarterTotal * 0.05 + state.ecv : 0;
+    },
 
-      // const tax = quarterTotal * 0.05;
-
-      return quarterTotal ? quarterTotal * 0.05 + 468600 : 0;
+    getTaxFivePercent(state) {
+      const quarterTotal = state.filterData.reduce(
+        (sum, transaction) => sum + transaction.operationAmount,
+        0
+      );
+      return quarterTotal ? quarterTotal * 0.05 : 0;
     },
   },
 });

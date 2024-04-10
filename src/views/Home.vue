@@ -23,7 +23,7 @@ onUnmounted(() => {
     <!-- Total balance -->
     <total-balance :data="store.getSum" />
     <!-- Nalog -->
-    <total-sum :data="store.getSumWithTaxPercent" />
+    <total-sum :data="store.getSumWithTaxPercent" :precent="store.getTaxFivePercent" />
   </div>
   <!-- Виписка -->
   <list-deals :data="store.filterData" />

@@ -1,10 +1,16 @@
 import axios from "axios";
 import { toast } from "vue3-toastify";
 
-axios.defaults.baseURL = "https://api.monobank.ua/personal";
-axios.defaults.headers = {
-  "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
-};
+const axiosMono = axios.create({
+  baseURL: "https://api.monobank.ua/personal",
+  headers: {
+    "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
+  },
+});
+
+const axiosPrivat = axios.create({
+  baseURL: "https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014",
+});
 
 axios.interceptors.response.use(
   function (response) {
@@ -42,4 +48,4 @@ axios.interceptors.response.use(
   }
 );
 
-export default axios;
+export { axiosMono, axiosPrivat };

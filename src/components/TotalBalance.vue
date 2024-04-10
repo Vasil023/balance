@@ -49,7 +49,6 @@ const onSlideChange = (swiper) => {
           <div>
             <p class="text-[#B8B8B8] text-sm">Оподаткований дохід</p>
             <p class="text-[#6CCE8C] text-base text-right">&#x20b4; {{ formatNumber(data) }}</p>
-            {{ balance }}
           </div>
         </div>
       </div>
