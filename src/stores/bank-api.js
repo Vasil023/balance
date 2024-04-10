@@ -105,7 +105,6 @@ export const useBankStore = defineStore("bank", {
     },
 
     getTransactionsToQuarter(index) {
-      console.log(index);
       const res = this.data.filter((i) => i?.quarter === index);
 
       return (this.filterData = res);

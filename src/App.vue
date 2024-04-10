@@ -2,8 +2,7 @@
 import { onMounted } from "vue";
 import { RouterView } from "vue-router";
 import { useUserStore } from "./stores/user";
-import Home from "./views/Home.vue";
-import Register from "./views/Register.vue";
+import ErrorDisplay from "./components/ErrorDisplay.vue";
 
 const store = useUserStore();
 
@@ -15,6 +14,7 @@ onMounted(() => {
 <template>
   <div class="wrapper">
     <!-- <home v-if="store.checkUser" /> -->
+    <error-display />
     <RouterView />
   </div>
 </template>
