@@ -42,12 +42,11 @@ export const useBankStore = defineStore("bank", {
     },
 
     startTimer() {
-      // this.mount = getQuarterMonths(
-      //   this.data.length
-      //     ? this.data[this.data.length - 1].time
-      //     : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
-      // );
-      this.mount = getQuarterMonths(1675950305);
+      this.mount = getQuarterMonths(
+        this.data.length
+          ? this.data[this.data.length - 1].time
+          : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
+      );
       this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
