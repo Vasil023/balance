@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, onUnmounted } from "vue";
-import { useBankStore } from "@/stores/bank-api.js";
+import { useBankStore } from "@/stores/useBankStore";
 
 import TotalBalance from "@/components/TotalBalance.vue";
 import TotalSum from "@/components/TotalSum.vue";
@@ -29,12 +29,4 @@ onUnmounted(() => {
   <list-deals :data="store.filterData" />
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style></style>

@@ -23,7 +23,6 @@ onMounted(() => {
 .wrapper {
   /* width: 640px; */
   position: relative;
-  height: 100vh;
   margin: 0 auto;
   padding-top: 50px;
   background: #f4f4f8;

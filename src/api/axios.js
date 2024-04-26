@@ -2,14 +2,17 @@ import axios from "axios";
 import { toast } from "vue3-toastify";
 
 const axiosMono = axios.create({
-  baseURL: "https://api.monobank.ua/personal",
+  baseURL: "https://api.monobank.ua",
   headers: {
     "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
   },
 });
 
 const axiosPrivat = axios.create({
-  baseURL: "https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014",
+  baseURL: "https://api.privatbank.ua/p24api",
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+  },
 });
 
 axios.interceptors.response.use(

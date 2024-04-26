@@ -1,14 +1,8 @@
 import { defineStore } from "pinia";
 import { supabase } from "@/lib/supabaseClient";
 import api from "@/api/bank-axios.js";
-import dayjs from "dayjs";
-import quarterOfYear from "dayjs/plugin/quarterOfYear";
 import { getQuarterMonths } from "@/utils/formatedDate";
 import { isNonNegative } from "@/utils/isNonNegative";
-
-dayjs.extend(quarterOfYear);
-
-const viteEcv = import.meta.env.VITE_ECV;
 
 export const useBankStore = defineStore("bank", {
   state: () => ({
@@ -25,8 +19,7 @@ export const useBankStore = defineStore("bank", {
   actions: {
     async run() {
       await this.getTransactionsForDataBase();
-
-      await this.getExchangeRates();
+      this.getTransactionsToQuarter(1);
     },
 
     async getTransactionsForDataBase() {
@@ -41,7 +34,7 @@ export const useBankStore = defineStore("bank", {
 
       this.data = Balance;
 
-      this.getTransactionsToQuarter(+localStorage.getItem("quarter"));
+      this.getTransactionsToQuarter(+localStorage.getItem(1));
 
       this.startTimer();
     },
@@ -52,7 +45,6 @@ export const useBankStore = defineStore("bank", {
           ? this.data[this.data.length - 1].time
           : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
       );
-      this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
 
@@ -85,6 +77,7 @@ export const useBankStore = defineStore("bank", {
             comment,
             time,
             quarter,
+            user_id: JSON.parse(localStorage.getItem("user_id")).user_id,
           }));
 
         this.upsertData(filteredTransactions);
@@ -115,10 +108,10 @@ export const useBankStore = defineStore("bank", {
       return (this.filterData = res);
     },
 
-    // async getExchangeRates() {
-    //   const { data } = api.getExchangeRates("01.01.2024");
-    //   console.log(data);
-    // },
+    async getExchangeRates() {
+      const { data } = api.getExchangeRates();
+      console.log(data);
+    },
   },
 
   getters: {

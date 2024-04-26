@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { formatNumber } from "@/utils/formatNumber.js";
-import { useBankStore } from "@/stores/bank-api";
+import { useBankStore } from "@/stores/useBankStore";
 import "swiper/css";
 
 const props = defineProps({
