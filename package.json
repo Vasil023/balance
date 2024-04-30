@@ -2,10 +2,9 @@
   "name": "vue-project",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
+    "dev": "vite",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -14,6 +13,7 @@
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
     "pinia": "^2.1.7",
+    "register-service-worker": "^1.7.2",
     "swiper": "^11.0.7",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
@@ -21,11 +21,13 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/cli-plugin-pwa": "~5.0.0",
     "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.5",
     "vite-plugin-vue-devtools": "^7.0.16"
-  }
+  },
+  "type": "module"
 }

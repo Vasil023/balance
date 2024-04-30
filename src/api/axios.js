@@ -26,7 +26,7 @@ axios.interceptors.response.use(
     // Любые коды состояния, выходящие за пределы диапазона 2xx, вызывают срабатывание этой функции
     // Здесь можете сделать что-то с ошибкой ответа
     let message = "";
-
+    console.log(error, "error");
     switch (error.response.status) {
       case 400:
         message = "Помилка запиту";
