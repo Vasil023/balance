@@ -6,6 +6,7 @@
     "build": "vite build",
     "dev": "vite",
     "serve": "PORT=4433 serve dist",
+    "watch": "vite build -w",
     "preview": "vite preview"
   },
   "dependencies": {

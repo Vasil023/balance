@@ -77,7 +77,7 @@ export const useBankStore = defineStore("bank", {
             comment,
             time,
             quarter,
-            user_id: JSON.parse(localStorage.getItem("user_id")).user_id,
+            user_id: JSON.parse(localStorage.getItem("user_id"))?.user_id,
           }));
 
         this.upsertData(filteredTransactions);
