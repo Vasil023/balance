@@ -5,6 +5,7 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
+    "serve": "PORT=4433 serve dist",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -27,6 +28,7 @@
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.5",
+    "vite-plugin-pwa": "^0.20.0",
     "vite-plugin-vue-devtools": "^7.0.16"
   },
   "type": "module"
