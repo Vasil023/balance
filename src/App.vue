@@ -8,12 +8,12 @@ const store = useUserStore();
 
 onMounted(() => {
   store.checkSession();
+  console.log(store.loading);
 });
 </script>
 
 <template>
   <div class="wrapper">
-    <!-- <home v-if="store.checkUser" /> -->
     <error-display />
     <RouterView />
   </div>
@@ -26,5 +26,6 @@ onMounted(() => {
   margin: 0 auto;
   padding-top: 50px;
   background: #f4f4f8;
+  height: 100vh;
 }
 </style>

@@ -13,14 +13,14 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "My Awesome App",
-        short_name: "MyApp",
-        description: "My Awesome App description",
+        name: "Finance",
+        short_name: "Finance",
+        description: "Finance App",
         theme_color: "#ffffff",
         icons: [
           {
-            src: "/img/icons/apple-touch-icon-180x180.png",
-            sizes: "180x180",
+            src: "/img/icons/apple-touch-icon.png",
+            sizes: "192x192",
             type: "image/png",
           },
         ],

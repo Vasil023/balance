@@ -64,6 +64,7 @@ export const useBankStore = defineStore("bank", {
     },
 
     async getAllTransactions(currentYear, nextYear, quarter) {
+      this.loading = true;
       try {
         const { data } = await api.getTransactions("_3xe8hv_38-86EWSbvZFyA", currentYear, nextYear);
 
@@ -82,6 +83,7 @@ export const useBankStore = defineStore("bank", {
 
         this.upsertData(filteredTransactions);
       } catch (error) {
+        this.loading = false;
         this.stopTimer();
         throw error;
       }
