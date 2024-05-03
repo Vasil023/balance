@@ -12,6 +12,7 @@ export default defineConfig({
     VueDevTools(),
     VitePWA({
       registerType: "autoUpdate",
+      injectRegister: "auto",
       manifest: {
         name: "Finance",
         short_name: "Finance",
@@ -20,7 +21,7 @@ export default defineConfig({
         icons: [
           {
             src: "img/icons/apple-touch-icon.png",
-            sizes: "192x192",
+            sizes: "180x180",
             type: "image/png",
           },
         ],
