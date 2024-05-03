@@ -45,6 +45,7 @@ export const useBankStore = defineStore("bank", {
           ? this.data[this.data.length - 1].time
           : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
       );
+      this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
 

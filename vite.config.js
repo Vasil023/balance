@@ -19,7 +19,7 @@ export default defineConfig({
         theme_color: "#ffffff",
         icons: [
           {
-            src: "/img/icons/apple-touch-icon.png",
+            src: "img/icons/apple-touch-icon.png",
             sizes: "192x192",
             type: "image/png",
           },
@@ -35,4 +35,6 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
+
+  base: "./",
 });
