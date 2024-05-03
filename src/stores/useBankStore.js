@@ -93,10 +93,7 @@ export const useBankStore = defineStore("bank", {
     async upsertData(obg) {
       const { data, error } = await supabase.from("Balance").insert(obg).select();
 
-      if (error) {
-        // throw error;
-        console.log("error");
-      }
+      if (error) return;
 
       if (data === null) return;
 
@@ -113,7 +110,6 @@ export const useBankStore = defineStore("bank", {
 
     async getExchangeRates() {
       const { data } = api.getExchangeRates();
-      console.log(data);
     },
   },
 
