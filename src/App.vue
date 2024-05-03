@@ -8,7 +8,6 @@ const store = useUserStore();
 
 onMounted(() => {
   store.checkSession();
-  console.log(store.loading);
 });
 </script>
 
