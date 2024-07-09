@@ -45,7 +45,7 @@ export const useBankStore = defineStore("bank", {
           ? this.data[this.data.length - 1].time
           : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
       );
-      this.timer = setInterval(this.printNextElement, 60000);
+      this.timer = setInterval(this.printNextElement, 10000);
       this.printNextElement();
     },
 
@@ -82,7 +82,8 @@ export const useBankStore = defineStore("bank", {
             user_id: JSON.parse(localStorage.getItem("user_id"))?.user_id,
           }));
 
-        this.upsertData(filteredTransactions);
+        // this.upsertData(filteredTransactions);
+        filteredTransactions.forEach((i) => this.upsertData(i));
       } catch (error) {
         this.loading = false;
         this.stopTimer();
@@ -90,22 +91,14 @@ export const useBankStore = defineStore("bank", {
       }
     },
 
-    async upsertData(obg) {
-      const { data, error } = await supabase.from("Balance").insert(obg).select();
-
-      if (error) return;
-
-      if (data === null) return;
-
-      data.forEach((i) => {
-        this.data.push(i);
-      });
-    },
-
     getTransactionsToQuarter(index) {
       const res = this.data.filter((i) => i?.quarter === index);
 
       return (this.filterData = res);
+    },
+
+    async upsertData(obg) {
+      const { data, error } = await supabase.from("Balance").insert(obg).select();
     },
 
     async getExchangeRates() {

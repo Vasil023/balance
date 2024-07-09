@@ -1,24 +1,19 @@
-import { axiosMono, axiosPrivat } from "@/api/axios";
+import axios from "@/api/axios";
 
 const getInfoClient = () => {
-  return axiosMono.get("/personal/client-info");
+  return axios.get("/personal/client-info");
 };
 
 const getTransactions = (walletId, from, to = "") => {
-  return axiosMono.get(`/personal/statement/${walletId}/${from}/${to}`);
-};
-
-const getExchangeRates = (date) => {
-  return axiosPrivat.get(`/pubinfo?exchange&coursid=5`);
+  return axios.get(`/personal/statement/${walletId}/${from}/${to}`);
 };
 
 const webHook = () => {
-  return axiosMono.get("/bank/currency");
+  return axios.get("/bank/currency");
 };
 
 export default {
   getInfoClient,
   getTransactions,
-  getExchangeRates,
   webHook,
 };
