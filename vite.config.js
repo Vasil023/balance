@@ -10,26 +10,26 @@ export default defineConfig({
   plugins: [
     vue(),
     VueDevTools(),
-    VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "auto",
-      manifest: {
-        name: "Finance",
-        short_name: "Finance",
-        description: "Finance App",
-        theme_color: "#ffffff",
-        icons: [
-          {
-            src: "img/icons/apple-touch-icon.png",
-            sizes: "180x180",
-            type: "image/png",
-          },
-        ],
-      },
-      workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
-      },
-    }),
+    // VitePWA({
+    //   registerType: "autoUpdate",
+    //   injectRegister: "auto",
+    //   manifest: {
+    //     name: "Finance",
+    //     short_name: "Finance",
+    //     description: "Finance App",
+    //     theme_color: "#ffffff",
+    //     icons: [
+    //       {
+    //         src: "img/icons/apple-touch-icon.png",
+    //         sizes: "180x180",
+    //         type: "image/png",
+    //       },
+    //     ],
+    //   },
+    //   workbox: {
+    //     globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+    //   },
+    // }),
   ],
   resolve: {
     alias: {

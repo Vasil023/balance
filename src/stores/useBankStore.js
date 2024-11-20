@@ -41,11 +41,8 @@ export const useBankStore = defineStore("bank", {
 
     startTimer() {
       this.mount = getQuarterMonths(
-        this.data.length
-          ? this.data[this.data.length - 1].time
-          : JSON.parse(localStorage.getItem("trust:cache:timestamp")).timestamp
-      );
-      this.timer = setInterval(this.printNextElement, 10000);
+        1731922054);
+      this.timer = setInterval(this.printNextElement, 60000);
       this.printNextElement();
     },
 
