@@ -1,14 +1,6 @@
 <script setup>
-import { onMounted } from "vue";
 import { RouterView } from "vue-router";
-import { useUserStore } from "./stores/user";
 import ErrorDisplay from "./components/ErrorDisplay.vue";
-
-const store = useUserStore();
-
-// onMounted(() => {
-//   store.checkSession();
-// });
 </script>
 
 <template>

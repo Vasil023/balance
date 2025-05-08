@@ -7,6 +7,7 @@ import "swiper/css";
 
 const props = defineProps({
   data: Array,
+  precent: Number,
 });
 
 const store = useBankStore();
@@ -46,9 +47,10 @@ const onSlideChange = (swiper) => {
             <p class="text-[#B8B8B8] text-sm">{{ i.name }}</p>
             <p class="text-base">Квартал {{ i.quarter }}</p>
           </div>
-          <div>
+          <div class="text-right">
             <p class="text-[#B8B8B8] text-sm">Оподаткований дохід</p>
             <p class="text-[#6CCE8C] text-base text-right">&#x20AC; {{ formatNumber(data) }}</p>
+            <span class="text-sm text-gray-300"> Чистого: &#x20AC; {{ formatNumber(data - precent) }} </span>
           </div>
         </div>
       </div>

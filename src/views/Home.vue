@@ -40,7 +40,7 @@ onUnmounted(() => {
 
       <div class="container">
         <!-- Total balance -->
-        <total-balance :data="store.getSum" />
+        <total-balance :data="store.getSum" :precent="store.getTaxFivePercent" />
         <!-- Nalog -->
         <total-sum :data="store.getSumWithTaxPercent" :precent="store.getTaxFivePercent" />
       </div>

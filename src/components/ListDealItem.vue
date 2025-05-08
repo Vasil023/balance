@@ -30,7 +30,7 @@ const formatDate = (timestamp) => {
         Податок: &#x20AC; {{ formatNumber(props.data.amount * 0.06 + ECV / 3) }}
       </span>
       <span v-if="props.data.amount > 0" class="text-sm text-right text-gray-300">
-        Чисто: &#x20AC; {{ formatNumber(props.data.amount - (props.data.amount * 0.06 + ECV / 3)) }}
+        Чистого: &#x20AC; {{ formatNumber(props.data.amount - (props.data.amount * 0.06 + ECV / 3)) }}
       </span>
     </div>
   </li>
