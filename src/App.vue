@@ -6,9 +6,9 @@ import ErrorDisplay from "./components/ErrorDisplay.vue";
 
 const store = useUserStore();
 
-onMounted(() => {
-  store.checkSession();
-});
+// onMounted(() => {
+//   store.checkSession();
+// });
 </script>
 
 <template>

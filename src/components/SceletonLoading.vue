@@ -12,6 +12,19 @@
         <div class="container">
           <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4 mt-12"></div>
           <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+
+          <!-- Прогрес-бар для відображення процесу завантаження транзакцій -->
+          <div v-if="store.isTransactionsLoading" class="mt-8">
+            <div class="text-center text-gray-600 mb-2">
+              Завантаження транзакцій: {{ store.getTransactionLoadProgress }}%
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+              <div
+                class="bg-blue-600 h-2.5 rounded-full"
+                :style="{ width: `${store.getTransactionLoadProgress}%` }"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="">
@@ -24,6 +37,12 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { useBankStore } from "@/stores/useBankStore";
+
+const store = useBankStore();
+</script>
 
 <style scoped>
 .loading {

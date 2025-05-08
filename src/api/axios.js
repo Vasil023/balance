@@ -3,7 +3,7 @@ import { toast } from "vue3-toastify";
 
 axios.defaults.baseURL = "https://api.monobank.ua";
 axios.defaults.headers = {
-  "X-Token": "uXEb3eNHThCxm6ajZ1LlV1QzMucAg5Pu8nyWRsipx0cY",
+  "X-Token": "uMxDeozD0-vaYzE9RNNyM5vvyV9ODnij5bDJ3Wbk_p30",
 };
 
 axios.interceptors.response.use(
