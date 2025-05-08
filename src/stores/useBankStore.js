@@ -17,6 +17,7 @@ export const useBankStore = defineStore("bank", {
     dbManager: new IndexedDBManager("MonobankDB", 1),
     isLoadingTransactions: false,
     transactionLoadProgress: 0,
+    webhookSetup: false,
   }),
 
   actions: {
@@ -318,12 +319,30 @@ export const useBankStore = defineStore("bank", {
       }
     },
 
+    async setupWebhook() {
+      try {
+        // Setup webhook for ФОП account
+        const webhookUrl = import.meta.env.VITE_WEBHOOK_URL || window.location.origin + "/api/webhook/mono";
+        await bankApi.setupWebhook(webhookUrl);
+        this.webhookSetup = true;
+        toast("Webhook налаштовано успішно", { type: "success" });
+      } catch (error) {
+        console.error("Помилка налаштування webhook:", error);
+        toast("Не вдалося налаштувати webhook", { type: "error" });
+      }
+    },
+
     // Метод для періодичного оновлення даних
     async run() {
       await this.initDB();
 
       await this.getInfo();
       await this.getTransactions();
+
+      // Setup webhook if not already done
+      if (!this.webhookSetup) {
+        await this.setupWebhook();
+      }
 
       // Запускаємо таймер для оновлення даних кожні 5 хвилин
       // this.timer = setInterval(() => {

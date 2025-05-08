@@ -36,6 +36,14 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-
+  server: {
+    proxy: {
+      // Proxy API requests to the backend during development
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
+    },
+  },
   base: "./",
 });

@@ -22,12 +22,13 @@ const getTransactions = (walletId, from, to) => {
   return axios.get(`/personal/statement/${walletId}/${from}/${to}`);
 };
 
-const webHook = () => {
-  return axios.get("/bank/currency");
+// Add webhook setup function
+const setupWebhook = (webhookUrl) => {
+  return axios.post("/personal/webhook", { webHookUrl: webhookUrl });
 };
 
 export default {
   getInfoClient,
   getTransactions,
-  webHook,
+  setupWebhook,
 };
