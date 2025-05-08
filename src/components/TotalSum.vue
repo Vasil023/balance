@@ -22,7 +22,7 @@ const ECV = import.meta.env.VITE_ECV;
         </div>
         <div class="text-left">
           <p class="text-gray-400">Податок на прибуток</p>
-          <span>{{ formatNumber(precent) }} &#x20b4; </span>
+          <span>{{ formatNumber(precent) }} &#x20AC; </span>
         </div>
       </div>
     </div>

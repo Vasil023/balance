@@ -45,7 +45,7 @@ onUnmounted(() => {
         <total-sum :data="store.getSumWithTaxPercent" :precent="store.getTaxFivePercent" />
       </div>
       <!-- Виписка -->
-      <list-deals :data="store.filterData" />
+      <list-deals :data="store.transactions" />
     </div>
     <SceletonLoading v-else />
   </section>

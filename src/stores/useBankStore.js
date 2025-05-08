@@ -41,7 +41,7 @@ export const useBankStore = defineStore("bank", {
 
         // Зберігаємо ID гаманця для подальшого використання
         if (this.client.accounts && this.client.accounts.length > 0) {
-          // Спочатку шукаємо акаунт з типом 'fop' (ФОП) і позитивним балансом
+          // Спочатку шукаємо акаунт з типом 'fop' (ФОП)
           const fopAccountWithBalance = this.client.accounts.find(
             (account) => account.type === "fop" && account.balance > 0
           );
@@ -213,6 +213,22 @@ export const useBankStore = defineStore("bank", {
     async getTransactions() {
       try {
         this.loading = false;
+
+        // Перевіряємо, чи є збережені транзакції і коли вони були оновлені
+        const lastUpdate = localStorage.getItem("lastTransactionsUpdate");
+        const currentTime = Date.now();
+        const oneDayInMs = 24 * 60 * 60 * 1000; // 24 години
+
+        // Якщо є збережені транзакції і вони оновлювались протягом останніх 24 годин,
+        // використовуємо їх замість запиту до API
+        if (lastUpdate && currentTime - parseInt(lastUpdate) < oneDayInMs) {
+          console.log("Завантаження транзакцій з IndexedDB...");
+          await this.getTransactionsFromIndexedDB();
+          return this.transactions;
+        }
+
+        // Якщо даних немає або вони застаріли, отримуємо з API
+        console.log("Отримання нових транзакцій з API...");
         const walletId = localStorage.getItem("wallet") || "";
 
         if (!walletId) {
@@ -365,7 +381,7 @@ export const useBankStore = defineStore("bank", {
   getters: {
     // Отримання загальної суми транзакцій
     getSum() {
-      return this.filteredTransactions.reduce((sum, transaction) => {
+      return this.transactions.reduce((sum, transaction) => {
         // Додавати до суми тільки позитивні транзакції (надходження)
         return sum + (transaction.amount > 0 ? transaction.amount : 0);
       }, 0);
@@ -379,7 +395,7 @@ export const useBankStore = defineStore("bank", {
     // Отримання суми з урахуванням податку
     getSumWithTaxPercent() {
       const ECV = parseInt(import.meta.env.VITE_ECV || "0");
-      return this.getTaxFivePercent + ECV;
+      return this.getTaxFivePercent + ECV + 0.01;
     },
 
     // Фільтровані дані

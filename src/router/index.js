@@ -30,16 +30,4 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("token");
-  // If logged in, or going to the Login page.
-  if (token || to.name === "login" || to.name === "register") {
-    // Continue to page.
-    next();
-  } else {
-    // Not logged in, redirect to login.
-    next({ name: "login" });
-  }
-});
-
 export default router;

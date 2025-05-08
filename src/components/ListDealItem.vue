@@ -24,13 +24,13 @@ const formatDate = (timestamp) => {
     </div>
     <div class="flex flex-col">
       <div :class="props.data.amount > 0 ? 'text-[#6CCE8C]' : 'text-red-500'">
-        &#x20b4; {{ formatNumber(props.data.amount) }}
+        &#x20AC; {{ formatNumber(props.data.amount) }}
       </div>
       <span v-if="props.data.amount > 0" class="text-sm text-right text-gray-300">
-        Податок: &#x20b4; {{ formatNumber(props.data.amount * 0.05 + ECV / 3) }}
+        Податок: &#x20AC; {{ formatNumber(props.data.amount * 0.06 + ECV / 3) }}
       </span>
       <span v-if="props.data.amount > 0" class="text-sm text-right text-gray-300">
-        Чисто: &#x20b4; {{ formatNumber(props.data.amount - (props.data.amount * 0.05 + ECV / 3)) }}
+        Чисто: &#x20AC; {{ formatNumber(props.data.amount - (props.data.amount * 0.06 + ECV / 3)) }}
       </span>
     </div>
   </li>
