@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "build": "mkdir -p dist && cp -r index.js routes models controllers .env package.json dist/",
     "dev": "nodemon index.js"
   },
   "dependencies": {
