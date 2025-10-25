@@ -22,6 +22,10 @@ export const useUserStore = defineStore("user", {
         useLocalStorage("token", {
           token: data.session.access_token,
         });
+        // persist state in localStorage
+        useLocalStorage("user_id", {
+          user_id: data.session.user.id,
+        });
 
         this.router.push("/");
       } catch (error) {

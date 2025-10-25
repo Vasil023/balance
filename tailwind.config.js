@@ -9,16 +9,13 @@ export default {
       center: true,
 
       screens: {
-        sm: "600px",
-        md: "728px",
-        lg: "984px",
-        xl: "1240px",
-        "2xl": "1496px",
+        xl: "1224px",
       },
     },
 
     fontSize: {
       sm: "0.75rem",
+      lg: "0.9rem",
       base: "1rem",
       xl: "1.25rem",
       "2xl": "1.563rem",
